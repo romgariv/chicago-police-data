@@ -29,4 +29,14 @@ output/dat_feb2016_officer.csv.gz: \
 		frozen/dat_feb2016_officer.csv
 	gzip -k $< && mv frozen/dat_feb2016_officer.csv.gz output/
 
+# this should have dependencies on the data, but that's tricky
+# bc the data are in dropbox remotely.
+output/train.html: \
+		note/import.ipynb
+	jupyter nbconvert \
+		--ExecutePreprocessor.timeout=600  \
+		--to html \
+		--execute $<
+	mv note/import.html output/
+
 # done.
